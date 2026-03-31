@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <h1 class="head">Admin Dashboard</h1>
+
+<div class="flexxx">
+
+  <% users.forEach(function(user){ %>
+    <div class="card">
+      <h2><%= user.name %></h2>
+      <p><strong>Email:</strong> <%= user.email %></p>
+      <p><strong>Total Services:</strong> <%= user.booking.length %></p>
+
+      <% user.booking.forEach(function(b){ %>
+        <div class="inner">
+          <p><%= b.service %></p>
+          <p><%= b.date %></p>
+          <p><%= b.time %></p>
+          <p><%= b.addres %></p>
+        </div>
+      <% }) %>
+
+    </div>
+  <% }) %>
+
+</div>
+
+</body>
+</html>

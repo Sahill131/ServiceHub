@@ -1,0 +1,370 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: "poppins";
+}
+
+.flex{
+    display: flex;
+}
+nav{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+.name{
+    font-size: 30px;
+    font-weight: bold;
+}
+.hub{
+    font-style: italic;
+   
+}
+
+ul{
+    display: flex;
+    list-style-type: none;
+    gap:40px;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.buttons{
+  margin-top: 10px;
+}
+.button{
+    padding:10px 15px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+}
+
+.section1{
+    padding: 70px 0px;
+}
+
+.hero1{
+    text-align: center;
+    font-size: 50px;
+    
+}
+
+.hero2{
+    text-align: center;
+    font-size: 20px;
+}
+.buttonss{
+  margin-top: 30px;
+  margin-left: 40%;
+}
+.trans{
+    background-color: transparent;
+    color: black;
+    font-size: 15px;
+}
+
+.pictures{
+    margin-top: 80px;
+    margin-left: 8%;
+    
+}
+
+.shape{
+    width: 120px;
+}
+.shape1{
+    width: 160px;
+}
+.shape2{
+    width: 190px;
+}
+.shape3{
+    width: 260px;
+}
+
+li:hover{
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.button:hover{
+    cursor: pointer;
+    background-color: #fff;
+    color: black;
+}
+
+
+.section2{
+    padding: 80px 30px;
+}
+
+.about1{
+font-size: 50px;
+}
+
+.gap{
+    gap:50px
+}
+.images{
+    margin-top: 50px;
+}
+.resize{
+    width: 500px;
+    border-radius: 30px;
+}
+
+.about2{
+    margin-top: 90px;
+    font-size: 22px;
+}
+
+.stats{
+    margin-top: 40px;
+}
+
+.a h3{
+    font-size: 40px;
+}
+.small{
+    font-size: 15px;
+}
+
+.shift{
+    margin-left: 12px;
+}
+
+.shift1{
+    margin-left: 35px;
+}
+
+
+.shift3{
+    margin-left: 35px;
+}
+.explore{
+    margin-top: 40px;
+}
+
+.section3{
+    padding: 80px 50px;
+}
+
+.wrap{flex-wrap: wrap;}
+
+.features{
+    margin-top: 80px;
+}
+
+.offer{
+    font-size: 50px;
+}
+
+.big{
+    font-size: 100px;
+    margin-left: 30%;
+}
+
+.section4{
+    padding: 80px 50px;
+}
+
+.gap4{
+    gap:60px
+}
+.servicesss{
+    margin-top: 60px;
+}
+.ser{
+    font-size: 50px;
+}
+
+.box{
+    width:300px;
+    border: 1px solid black;
+    padding: 15px;
+    border-radius: 30px;
+}
+
+.section5{
+    padding: 80px 50px;
+}
+
+.form{
+    font-size: 50px;
+}
+
+.formimg{
+    width: 400px;
+}
+
+.top{
+    margin-top: 50px;
+}
+
+input{
+    width: 420px;
+    padding: 12px;
+    margin: 5px;
+    border-radius: 15px;
+    border: 2px solid black;
+}
+
+textarea{
+     border-radius: 15px;
+    border: 2px solid black;
+    margin-left: 10px;
+}
+
+.footer{
+    padding: 50px;
+    background-color: rgba(128, 128, 128, 0.196);
+}
+
+.footer h3{
+    color: rgba(0, 0, 0, 0.777);
+}
+.footer p{
+    color: rgba(0, 0, 0, 0.684);
+}
+
+.f1{
+    margin-top: 70px;
+    line-height: 1.8;
+}
+
+.gap14{
+    gap:90px
+}
+
+.ml{
+    margin-left: 10%;
+}
+
+
+
+.copy{
+    text-align: center;
+    margin-top: 15px;
+}
+
+.lef{
+    /* margin-left: 35%;
+    margin-top: 80px; */
+}
+
+.lef p{
+    color: rgba(0, 0, 0, 0.756);
+}
+
+.login{
+    padding: 8px;
+    border-radius: 0%;
+    border: 2px solid rgba(0, 0, 0, 0.401);
+}
+
+form{
+    /* margin-left: 35%; */
+    margin-top: 40px;
+}
+.formm{
+    margin-left: 80px;
+}
+/* .{
+    formmmargin-left: 60px;
+} */
+.submit{
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 0%;
+    margin-top: 10px;
+
+}
+.boxx{
+    width: 500px;
+    border: 2px solid rgba(0, 0, 0, 0.452);
+    padding: 20px;
+    margin-left: 35%;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+.submit:hover{
+    cursor: pointer;
+    background-color: transparent;
+    color: black;
+}
+
+select{
+    width: 430px;
+    text-align: center;
+    padding: 12px 6px;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+.design{
+    border-radius:15px ;
+    border:2px solid black;
+    width: 420px;
+}
+
+.your{
+    margin-top: 40px;
+    margin-left: 40px;
+    font-size: 25px;
+}
+.boo{
+    margin-top: 40px;
+    margin-left: 30px;
+    
+}
+.bo{
+    width: 150px;
+    border-radius: 10px;
+    padding: 10px;
+    border: 2px solid black;
+}
+
+.wel{
+    margin-left: 30px;
+    margin-top: 40px;
+}
+
+.flexx{
+    display: flex;
+}
+
+.head{
+    margin-left: 30px;
+    font-family: Poppins;
+    margin-top: 40px;
+}
+
+.flexxx{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 30px;
+}
+
+.card{
+    width: 260px;
+    border: 2px solid black;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+}
+
+.inner{
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px solid gray;
+    border-radius: 8px;
+}

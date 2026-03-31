@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    
+</head>
+<body>
+    <div class="wel">
+    <h1> Welcome, <%= user.name %> 👋</h1>
+     <p>Total Services Booked: <%= user.booking.length%></p>
+     </div>
+
+     <p class="your">Your Bookings</p>
+
+     
+  <% if (user.booking.reverse() && user.booking.length> 0) { %>
+
+    <% user.booking.forEach(function(b) { %>
+<div class="flexx">
+      <div class="boo">
+        <div class="bo">
+
+          <p >
+           
+            <%= b.service %> <br>
+            <%= b.date %> <br>
+            <%= b.time  %> <br>
+            <%= b.addres %> <br>
+          
+
+          </p>
+
+          </div>
+
+          
+      </div>
+
+      <% }) %>
+
+        <% } else { %>
+          <p class="no">No Booking yet</p>
+          <% } %>
+</div>
+</body>
+</html>
