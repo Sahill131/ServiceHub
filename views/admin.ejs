@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <div style="text-align:center; margin-top:20px;">
+  
+  <% if (currentPage > 1) { %>
+    <a href="/admin?page=<%= currentPage - 1 %>">⬅ Prev</a>
+  <% } %>
+
+  <span style="margin:0 10px;">
+    Page <%= currentPage %> of <%= totalPages %>
+  </span>
+
+  <% if (currentPage < totalPages) { %>
+    <a href="/admin?page=<%= currentPage + 1 %>">Next ➡</a>
+  <% } %>
+
+</div>
+  <h1 class="head">Admin Dashboard</h1>
+
+  <div class="flexxx">
+
+    <% users.forEach(function(user){ %>
+      <div class="card">
+        <h2>
+          <%= user.name %>
+        </h2>
+        <p><strong>Email:</strong>
+          <%= user.email %>
+        </p>
+        <p><strong>Total Services:</strong>
+          <%= user.booking.length %>
+        </p>
+
+        <% user.booking.forEach(function(b){ %>
+          <div class="inner">
+            <p>
+              <%= b.service %>
+            </p>
+            <p>
+              <%= b.date %>
+            </p>
+            <p>
+              <%= b.time %>
+            </p>
+            <p>
+              <%= b.addres %>
+            </p>
+            <p>
+             <% if(b.Status==="Pending" ) { %>
+            <span class="badge pending">Pending</span>
+            <div class="click">
+            <a class="accept" href="/admin/complete/<%= b._id %>">Mark as Complete</a> &nbsp; &nbsp; &nbsp; &nbsp;
+           
+
+</div>
+
+           
+
+            <% } else if(b.Status==="Accepted" ) { %>
+              <span class="badge accepted">Accepted </span>
+              <div class="click">
+            <a class="accept" href="/admin/complete/<%= b._id %>">Mark as Complete</a> &nbsp; &nbsp; &nbsp; &nbsp;
+           
+
+</div>
+
+               <% } else if(b.Status==="Completed" ) { %>
+              <span class="badge accepted">Completed</span>
+
+               
+              <% } else { %>
+                <span class="badge rejected">Rejected </span>
+                <% } %>
+            </p>
+            
+          </div>
+          <% }) %>
+
+      </div>
+      <% }) %>
+
+  </div>
+
+</body>
+
+</html>

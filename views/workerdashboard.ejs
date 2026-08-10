@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Worker Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+
+</head>
+
+<body>
+
+  <div class="flex gg">
+
+    <div class="wimage">
+
+      <img src="/uploads/images/<%= wokersemail.profilepic %>" alt="" srcset="" class="profilepic">
+
+    </div>
+
+    <div class="wname">
+      <h1 class="email">
+        Hello, <span style="font-style: italic;">
+          <%= wokersemail.name %>
+        </span> 👋</h1>
+    </div>
+
+  </div>
+
+<div class="flex blength">
+
+  <p class="total">Yout Total booked Service Are : <span class="bold"> <%= wokersemail.booking.length %></span> </p>
+
+  <% const pendingCount=wokersemail.booking.filter( booking=> booking.Status === "Pending"
+    ).length;
+    %>
+
+    <% const acceptCount =wokersemail.booking.filter( b=> b.Status === "Accepted" ).length;
+    %>
+
+    
+    <% const rejectCount =wokersemail.booking.filter( b=> b.Status === "Rejected" ).length;
+    %>
+
+
+
+    <p class="new">New Booking : <span class="bold"><%= pendingCount %> </span></p>
+
+      <p class="new">Accepted Booking: <span class="bold"><%= acceptCount %> </span></p>
+
+            <p class="new">Rejected Booking: <span class="bold"><%= rejectCount %> </span></p>
+
+</div>
+
+    <div class="cards">
+      <div class="container">
+        <% workers.reverse().forEach(function(w) { %>
+          <div class="card">
+
+            <h3>
+              <%= w.user.name %>
+            </h3>
+            <p><strong>Name:</strong>
+              <%= w.name %>
+            </p>
+            <p><strong>Service:</strong>
+              <%= w.service %>
+            </p>
+            <p><strong>Address:</strong>
+              <%= w.address %>
+            </p>
+            <p><strong>Date:</strong>
+              <%= w.date %>
+            </p>
+            <p><strong>Time:</strong>
+              <%= w.time %>
+            </p>
+
+
+
+
+            <% if(w.Status==="Pending" ) { %>
+              <span class="badge pending">Pending</span>
+
+              <div class="btns">
+                <a class="accept" href="/worker/accept/<%= w._id %>">Accept</a> &nbsp; &nbsp; &nbsp; &nbsp;
+                <a class="reject" href="/worker/reject/<%= w._id %>">Reject</a>
+              </div>
+
+              <% } else if(w.Status==="Accepted" ) { %>
+                <span class="badge accepted">Accepted </span>
+
+                <% } else { %>
+                  <span class="badge rejected">Rejected </span>
+                  <% } %>
+
+          </div>
+          <% }) %>
+
+      </div>
+    </div>
+
+</body>
+
+</html>

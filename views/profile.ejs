@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+
+</head>
+
+<body>
+
+  <div class="flll">
+
+    <div class="wel">
+      <div class="fff">
+        <img src="/uploads/images/<%= user.profilepic %>" alt="" srcset="" class="profilepic">
+
+        <h1> Hello, <span class="hub">
+            <%= user.name %>
+          </span> 👋</h1>
+      </div>
+      <p>Total Services Booked: <%= user.booking.length%>
+      </p>
+    </div>
+
+
+    <div class="butt">
+      <a href="/"><button class="back">Back</button></a>
+      <a href="/logout"><button class="logout">Log out</button></a>
+    </div>
+  </div>
+
+  <p class="your">My Bookings </p>
+
+
+
+
+  <% if (user.booking.length> 0) { %>
+
+    <div class="flexx">
+
+      <% user.booking.slice().reverse().forEach(function(b) { %>
+
+        <div class="boo">
+          <div class="bo">
+
+            <span style="font-weight: bold;"> Service: <%= b.service %> </span><br>
+            Date: <%= b.date %> <br>
+              Time: <%= b.time %> <br>
+                Address: <%= b.addres %> <br>
+
+                  <p>
+
+                    <% if (b.Status==="Pending" ) { %>
+                      <span class="badge pending">Pending </span>
+
+                      <% } else if (b.Status==="Accept" ) { %>
+                        <span class="badge accepted">Accepted </span>
+
+                        <% } else if (b.Status==="Completed" ) { %>
+                          <span class="badge completed">Completed </span>
+                          <% } else { %>
+
+                            <span class="badge rejected">Rejected </span>
+                            <% } %>
+                  </p>
+
+          </div>
+        </div>
+
+        <% }) %>
+
+    </div>
+
+    <% } else { %>
+      <p class="no">No Booking yet</p>
+      <% } %>
+
+
+        <% if (user.review.length> 0) { %>
+
+          <div class="lll">
+            <h2>My Total Given Reviews</h2>
+            <p>Total Reviews Given: <%= user.review.length%>
+            </p>
+
+
+
+            <div class="reviews">
+              <% user.review.reverse() && user.review.forEach(function(c) { %>
+
+                <div class="rbox">
+
+                  <div class="rflex">
+
+                    <img src="/uploads/images/<%= user.profilepic %>" alt="" srcset="" class="profilepic">
+
+                    <h4 class="bottomm">
+                      <%= c.name %>
+                    </h4>
+
+                  </div>
+
+                  <p class="pb">
+                    <%= c.review %>
+                  </p>
+
+                
+
+                </div>
+
+
+
+                <% }) %>
+            </div>
+
+            <% } else { %>
+              <p class="noo">No Reviews yet</p>
+              <% } %>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+  integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="/stylesheets/script.js"></script>
+
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workers</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <style>
+        .searchbox {
+            width: 350px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav>
+        <p class="name">
+            Service <span class="hub">Hub</span>
+        </p>
+
+        <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Service</li>
+            <li>Booking</li>
+            <li><a href="/worker" class="none">Workers</a></li>
+        </ul>
+  <input
+            type="text"
+            id="search"
+            class="searchbox"
+            placeholder="Search by Name or Service...">
+       
+    </nav>
+
+    <div class="lele">
+        <h1>Workers</h1>
+        <p>Find Trusted Professional For Your Home Service</p>
+
+      
+    </div>
+
+    <div class="workerline">
+
+        <% worker.forEach(function(w){ %>
+
+            <div class="workerbox">
+
+                <img src="/uploads/images/wdefault.jpeg" alt="">
+
+                <br><br>
+
+                <p class="worker-name">
+                    <b>Name:</b> <%= w.name %>
+                </p>
+
+                <br>
+
+                <p class="worker-service">
+                    <b>Service:</b> <%= w.service %>
+                </p>
+
+                <br>
+
+                <p>
+                    <b>Exp:</b> <%= w.experience %>+ years
+                </p>
+
+                <br>
+
+                <div class="line">
+                    <p>
+                        <span class="green">₹<%= w.price %></span>/hr
+                    </p>
+
+                    <p>
+                        Visit:
+                        <span class="bold">₹<%= w.visit %></span>
+                    </p>
+                </div>
+
+                <br>
+
+                <p>
+                    <b>Location:</b> <%= w.location %>
+                </p>
+
+                <br>
+
+                <p><%= w.description %></p>
+
+                <br>
+
+                <a href="/">
+                    <button class="buttonsssss">Book Now</button>
+                </a>
+
+            </div>
+
+        <% }) %>
+
+    </div>
+
+    <script>
+        const search = document.getElementById("search");
+
+        search.addEventListener("keyup", function () {
+
+            const value = this.value.toLowerCase();
+
+            const workers = document.querySelectorAll(".workerbox");
+
+            workers.forEach(worker => {
+
+                const name = worker.querySelector(".worker-name").textContent.toLowerCase();
+                const service = worker.querySelector(".worker-service").textContent.toLowerCase();
+
+                if (name.includes(value) || service.includes(value)) {
+                    worker.style.display = "block";
+                } else {
+                    worker.style.display = "none";
+                }
+
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
