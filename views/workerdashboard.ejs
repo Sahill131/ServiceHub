@@ -32,6 +32,7 @@
 
   <p class="total">Yout Total booked Service Are : <span class="bold"> <%= wokersemail.booking.length %></span> </p>
 
+  
   <% const pendingCount=wokersemail.booking.filter( booking=> booking.Status === "Pending"
     ).length;
     %>

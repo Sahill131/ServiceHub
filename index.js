@@ -1,21 +1,25 @@
-const express = require('express')
+import express from "express"
 const app = express()
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const path = require("path")
-const usermodel = require("./models/usermodel.js");
-const bookingmodel = require("./models/bookingmodel.js");
-const reviewmodel = require("./models/reviewsmodel.js");
-const workermodel = require("./models/wokermodel.js")
+import path from "path"
+import usermodel from "./models/usermodel.js";
+import bookingmodel from "./models/bookingmodel.js";
+import reviewmodel from "./models/reviewsmodel.js";
+import workermodel from "./models/wokermodel.js"
 
-const bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
-const cookieParser = require("cookie-parser");
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import cookieParser from "cookie-parser";
 
 
-const upload = require("./config/multerconfig.js");
-const console = require('console');
-const strict = require('assert/strict');
+import upload from "./config/multerconfig.js";
+import islogin from "./middleware/IsLogin.js"
+import isAdmin from "./middleware/IsAdmin.js"
+import IsWorker from "./middleware/IsWorker.js"
+const JWTSCRECT = process.env.JWTSCRECT ;
+import dotenv from"dotenv";
+dotenv.config()
 
 
 
@@ -32,7 +36,7 @@ app.use(express.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 
 
-
+console.log("JWTSCRECT", process.env.JWTSCRECT)
 
 
 app.post('/create', async (req, res) => {
@@ -52,7 +56,7 @@ app.post('/create', async (req, res) => {
         role,
       })
 
-      var token = jwt.sign({ email: email, role: user.role }, 'shhhhh');
+      var token = jwt.sign({ email: email, role: user.role }, JWTSCRECT);
 
 
 
@@ -149,23 +153,7 @@ app.get("/admin", islogin, isAdmin, async (req, res) => {
 });
 
 
-function islogin(req, res, next) {
-  const token = req.cookies.token;
 
-  if (!token) {
-    return res.redirect("/login");
-  }
-
-  try {
-    const data = jwt.verify(token, "shhhhh");
-    req.user = data;
-
-    next();
-
-  } catch (err) {
-    return res.redirect("/login");
-  }
-}
 
 
 
@@ -286,19 +274,6 @@ app.get('/admin/complete/:id', async (req, res) => {
 
 })
 
-function isAdmin(req, res, next) {
-  if (!req.user) {
-
-    res.redirect("/login");
-  }
-
-  if (req.user.role !== "admin") {
-
-    res.send("Access Denied ");
-  }
-
-  next();
-}
 
 
 
@@ -416,14 +391,7 @@ app.get("/worker", islogin, async (req, res) => {
 
 
 
-function isWorker(req, res, next) {
-  if (req.user.role !== "worker") {
-    res.send("Acess denied")
-    res.redirect("/worker/login")
-  }
 
-  next()
-}
 
 
 app.get("/worker/dashboard", islogin, async (req, res) => {
@@ -437,6 +405,6 @@ app.get("/worker/dashboard", islogin, async (req, res) => {
 })
 
 
-app.listen(4000, () => {
-  console.log("Server running on port 4000")
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`)
 })
