@@ -1,6 +1,6 @@
  export default function isWorker(req, res, next) {
   if (req.user.role !== "worker") {
-    res.send("Acess denied")
+   return res.status(403).render("access-denied");
     res.redirect("/worker/login")
   }
 

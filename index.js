@@ -1,6 +1,6 @@
 import express from "express"
 const app = express()
-import mongoose from "mongoose";
+
 
 import path from "path"
 import usermodel from "./models/usermodel.js";
@@ -36,52 +36,9 @@ app.use(express.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 
 
-console.log("JWTSCRECT", process.env.JWTSCRECT)
 
 
-app.post('/create', async (req, res) => {
-  let { name, surname, email, password, role, } = req.body;
-  let user = await usermodel.findOne({ email });
-  if (user) return res.status(500).send("already registred")
-
-
-  bcrypt.genSalt(10, function (err, salt) {
-    bcrypt.hash(password, salt, async function (err, hash) {
-
-      let user = await usermodel.create({
-        name,
-        surname,
-        email,
-        password: hash,
-        role,
-      })
-
-      var token = jwt.sign({ email: email, role: user.role }, JWTSCRECT);
-
-
-
-      res.cookie("token", token, {
-        httpOnly: true
-      })
-
-      res.redirect("/")
-
-
-
-    });
-
-
-
-  });
-
-
-
-
-
-
-
-
-})
+app.post('/create', UserAuth)
 
 app.post('/check', async (req, res) => {
   let { email, password } = req.body
@@ -96,7 +53,7 @@ app.post('/check', async (req, res) => {
 
 
 
-    var token = jwt.sign({ email: email, role: user.role }, 'shhhhh');
+    var token = jwt.sign({ email: email, role: user.role }, process.env.PORT);
     res.cookie("token", token, {
 
     })
@@ -405,6 +362,6 @@ app.get("/worker/dashboard", islogin, async (req, res) => {
 })
 
 
-app.listen(process.env.PORT, () => {
+app.listen(4000, () => {
   console.log(`Server running on port ${process.env.PORT}`)
 })
