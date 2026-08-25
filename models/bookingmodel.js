@@ -1,4 +1,4 @@
-const mongoose=require("mongoose");
+import mongoose from "mongoose"
 
 
 
@@ -21,4 +21,5 @@ const bookingSchema = mongoose.Schema({
     user:[ { type:mongoose.Schema.Types.ObjectId, ref: "user"}]
 })
 
- module.exports= mongoose.model("booking",bookingSchema)
+const bookingmodel = mongoose.model("booking",bookingSchema)
+export default bookingmodel

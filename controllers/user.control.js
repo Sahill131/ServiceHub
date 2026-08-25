@@ -1,8 +1,7 @@
-const usermodel = require("../models/user.model");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-
-const JWTSCRECT = process.env.JWTSCRECT;
+import usermodel from "../models/usermodel.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+const JWTSCRECT = process.env.JWTSCRECT ;
 
 
 const UserAuth = async (req, res) => {

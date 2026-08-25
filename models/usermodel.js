@@ -36,5 +36,6 @@ name:{
    
 })
 
- module.exports= mongoose.model("user",userSchema)
+const usermodel = mongoose.model("user",userSchema)
  userSchema.index({ email: 1 });
+ export default usermodel

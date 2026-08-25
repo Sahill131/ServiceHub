@@ -17,9 +17,14 @@ import upload from "./config/multerconfig.js";
 import islogin from "./middleware/IsLogin.js"
 import isAdmin from "./middleware/IsAdmin.js"
 import IsWorker from "./middleware/IsWorker.js"
-const JWTSCRECT = process.env.JWTSCRECT ;
+import isUser from "./middleware/IsUser.js"
+
 import dotenv from"dotenv";
 dotenv.config()
+
+import UserAuth from "./controllers/user.control.js"
+import UserLogin from "./controllers/UserLogin.control.js"
+import UserLogout from "./controllers/UserLogout.contoller.js"
 
 
 
@@ -40,35 +45,10 @@ app.set('view engine', 'ejs')
 
 app.post('/create', UserAuth)
 
-app.post('/check', async (req, res) => {
-  let { email, password } = req.body
-
-  let user = await usermodel.findOne({ email })
-  if (!user) return res.status(500).send("something went wrong")
+app.post('/check', UserLogin)
 
 
-
-  bcrypt.compare(password, user.password, function (err, result) {
-
-
-
-
-    var token = jwt.sign({ email: email, role: user.role }, process.env.PORT);
-    res.cookie("token", token, {
-
-    })
-
-    res.redirect("/")
-
-  });
-})
-
-
-app.get('/logout', (req, res) => {
-  res.cookie("token", "")
-  res.redirect("/login")
-
-})
+app.get('/logout', UserLogout)
 
 app.get('/profile', islogin, isUser, async (req, res) => {
 
@@ -263,7 +243,7 @@ app.post("/worker/create", islogin, async (req, res) => {
 
   let worker = await workermodel.findOne({ email: email })
   if (worker) {
-    res.statusCode(500).send("Already Register")
+    return res.status(409).send("Already Register")
   }
 
   bcrypt.genSalt(10, function (err, salt) {
@@ -289,12 +269,7 @@ app.post("/worker/create", islogin, async (req, res) => {
         httpOnly: true,
         sameSite:"strict"
       })
-      res.redirect("/")
-
-      res.statusCode(200).json({
-        message:"all good",
-        data:workers
-      })
+      return res.redirect("/")
     })
 
   })
@@ -326,15 +301,6 @@ app.post('/login', async (req, res) => {
 })
 
 
-function isUser(req, res, next) {
-
-
-
-  if (req.user.role !== "admin" && req.user.role !== "User") {
-    res.send("acess denied")
-  }
-  next()
-}
 
 
 app.get("/worker", islogin, async (req, res) => {
@@ -351,7 +317,7 @@ app.get("/worker", islogin, async (req, res) => {
 
 
 
-app.get("/worker/dashboard", islogin, async (req, res) => {
+app.get("/worker/dashboard", islogin,IsWorker, async (req, res) => {
   let workers = await bookingmodel.find({ worker: req.user._id }).populate("user")
  
 
@@ -362,6 +328,8 @@ app.get("/worker/dashboard", islogin, async (req, res) => {
 })
 
 
-app.listen(4000, () => {
-  console.log(`Server running on port ${process.env.PORT}`)
-})
+const PORT = Number(process.env.PORT) || 4000;
+
+const server = app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});
