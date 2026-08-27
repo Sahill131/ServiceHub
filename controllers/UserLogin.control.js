@@ -16,7 +16,7 @@ const UserLogin = async (req, res) => {
 
 
 
-        var token = jwt.sign({ email: email, role: user.role }, process.env.PORT);
+        var token = jwt.sign({ email: email, role: user.role }, process.env.JWTSECRET);
         res.cookie("token", token, {
 
         })

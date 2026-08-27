@@ -13,18 +13,21 @@ import jwt from 'jsonwebtoken';
 import cookieParser from "cookie-parser";
 
 
-import upload from "./config/multerconfig.js";
+import upload from "./utils/multerconfig.js";
 import islogin from "./middleware/IsLogin.js"
 import isAdmin from "./middleware/IsAdmin.js"
 import IsWorker from "./middleware/IsWorker.js"
 import isUser from "./middleware/IsUser.js"
 
-import dotenv from"dotenv";
-dotenv.config()
+import "dotenv/config";
+
+import sendEmail from "./utils/NodeMailer.js";
+
 
 import UserAuth from "./controllers/user.control.js"
 import UserLogin from "./controllers/UserLogin.control.js"
 import UserLogout from "./controllers/UserLogout.contoller.js"
+import Booking from "./controllers/Booking.js"
 
 
 
@@ -53,7 +56,7 @@ app.get('/logout', UserLogout)
 app.get('/profile', islogin, isUser, async (req, res) => {
 
   let user = await usermodel.findOne({ email: req.user.email, role: "User" }).populate("booking").populate("review")
-  console.log(user)
+ 
 
 
   res.render("profile", { user })
@@ -94,39 +97,7 @@ app.get("/admin", islogin, isAdmin, async (req, res) => {
 
 
 
-app.post('/booking', islogin, async (req, res) => {
-
-  let user = await usermodel.findOne({ email: req.user.email })
-
-  let { name, email, service, date, time, addres } = req.body
-  let worker = await workermodel.findOne({ service: service })
-  let booking = await bookingmodel.create({
-    user: user._id,
-    name,
-    email,
-    service,
-    date,
-    time,
-    addres,
-    worker: worker._id,
-
-
-
-
-
-
-
-  })
-  worker.booking.push(booking._id)
-  user.booking.push(booking._id);
-  await user.save()
-  await worker.save()
-
-  
-
-  res.redirect("/")
-
-})
+app.post('/booking', islogin,Booking )
 
 app.get('/', async (req, res) => {
   let user = await usermodel.find({ role: "User" }).populate("review")
@@ -181,9 +152,31 @@ app.get('/worker/accept/:id', async (req, res) => {
 
   const id = req.params.id;
 
-  const idd = await bookingmodel.findOne({ _id: id })
+  const idd = await bookingmodel.findOne({ _id: id }).populate("user")
   idd.Status = "Accepted"
   await idd.save()
+
+  // SENDIND EMAIL
+
+   await sendEmail({
+      to: idd.user[0].email,
+
+      subject: "Your ServiceHub Booking is Accepted ✅",
+
+      html: `
+        <h2>Booking Accepted 🎉</h2>
+
+        <p>Hello ${idd.user},</p>
+
+
+        <p>
+          Thank you for using ServiceHub.
+        </p>
+      `,
+    });
+
+    console.log(idd)
+
   res.redirect("/worker/dashboard")
 
 })
@@ -264,7 +257,7 @@ app.post("/worker/create", islogin, async (req, res) => {
 
       })
 
-      let token = jwt.sign({ email: email, role: workers.role, _id: workers._id }, 'shhhhh')
+      let token = jwt.sign({ email: email, role: workers.role, _id: workers._id }, process.env.JWTSECRET)
       res.cookie("token", token, {
         httpOnly: true,
         sameSite:"strict"
@@ -289,7 +282,7 @@ app.post('/login', async (req, res) => {
 
 
 
-    var token = jwt.sign({ email: email, role: worker.role, _id: worker._id }, 'shhhhh');
+    var token = jwt.sign({ email: email, role: worker.role, _id: worker._id }, process.env.JWTSECRET);
     res.cookie("token", token, {
       httpOnly: true
     })
@@ -303,7 +296,7 @@ app.post('/login', async (req, res) => {
 
 
 
-app.get("/worker", islogin, async (req, res) => {
+app.get("/worker", async (req, res) => {
 
   let worker = await workermodel.find()
   res.render("worker", { worker })
@@ -318,13 +311,11 @@ app.get("/worker", islogin, async (req, res) => {
 
 
 app.get("/worker/dashboard", islogin,IsWorker, async (req, res) => {
+
   let workers = await bookingmodel.find({ worker: req.user._id }).populate("user")
- 
-
- 
-
   let wokersemail = await workermodel.findOne({ email: req.user.email }).populate("booking")
   res.render("workerdashboard", { workers, wokersemail ,})
+ 
 })
 
 

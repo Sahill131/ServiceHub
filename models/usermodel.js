@@ -4,38 +4,38 @@ mongoose.connect("mongodb://localhost:27017/servicehub");
 
 const userSchema = mongoose.Schema({
 
-name:{
-    type:String,
-    required:[true,"name is required"]
-},
-    surname:{
-        type:String,
-        required:[true,"surname is required"]
+    name: {
+        type: String,
+        required: [true, "name is required"]
     },
-    email:{
-        type:String,
-        uique:true,
-        required:[true,"email is required"]
+    surname: {
+        type: String,
+        required: [true, "surname is required"]
     },
-    password:{
-        type:String,
+    email: {
+        type: String,
+        unique: true,
+        required: [true, "email is required"]
     },
-    role:{
-        type:String,
-        required:[true,"role is required"]
+    password: {
+        type: String,
     },
-    profilepic:{
-        type:String,
-        default:"default.jpg",
+    role: {
+        type: String,
+        required: [true, "role is required"]
     },
-     booking:[ { type:mongoose.Schema.Types.ObjectId, ref: "booking"}],
-   
-    review:[ { type:mongoose.Schema.Types.ObjectId, ref: "review"}],
-    worker:[ { type:mongoose.Schema.Types.ObjectId, ref: "worker"}]
+    profilepic: {
+        type: String,
+        default: "default.jpg",
+    },
+    booking: [{ type: mongoose.Schema.Types.ObjectId, ref: "booking" }],
 
-   
+    review: [{ type: mongoose.Schema.Types.ObjectId, ref: "review" }],
+    worker: [{ type: mongoose.Schema.Types.ObjectId, ref: "worker" }]
+
+
 })
 
-const usermodel = mongoose.model("user",userSchema)
- userSchema.index({ email: 1 });
- export default usermodel
+const usermodel = mongoose.model("user", userSchema)
+userSchema.index({ email: 1 });
+export default usermodel

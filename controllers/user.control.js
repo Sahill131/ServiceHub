@@ -22,7 +22,7 @@ const UserAuth = async (req, res) => {
                 role,
             })
 
-            var token = jwt.sign({ email: email, role: user.role }, JWTSCRECT);
+            var token = jwt.sign({ email: email, role: user.role }, process.env.JWTSECRET);
 
 
 

@@ -11,11 +11,21 @@
 
     <style>
         .searchbox {
-            width: 350px;
+            width: 300px;
             padding: 12px;
             border-radius: 8px;
             border: 1px solid #ccc;
             font-size: 16px;
+        }
+
+        .price-filter {
+            margin-left: 0;
+            vertical-align: middle;
+        }
+
+        #priceValue {
+            display: inline-block;
+            min-width: 90px;
         }
     </style>
 
@@ -40,8 +50,12 @@
             id="search"
             class="searchbox"
             placeholder="Search by Name or Service...">
-       
     </nav>
+
+    <div class="price-filter">
+        <label for="priceRange">Max price: <span id="priceValue">₹0/hr</span></label>
+        <input type="range" id="priceRange" min="0" value="0" step="1">
+    </div>
 
     <div class="lele">
         <h1>Workers</h1>
@@ -54,7 +68,7 @@
 
         <% worker.forEach(function(w){ %>
 
-            <div class="workerbox">
+            <div class="workerbox" data-price="<%= w.price %>">
 
                 <img src="/uploads/images/wdefault.jpeg" alt="">
 
@@ -113,19 +127,27 @@
 
     <script>
         const search = document.getElementById("search");
+        const priceRange = document.getElementById("priceRange");
+        const priceValue = document.getElementById("priceValue");
+        const workers = document.querySelectorAll(".workerbox");
 
-        search.addEventListener("keyup", function () {
+        const prices = Array.from(workers).map(worker => Number(worker.dataset.price) || 0);
+        const highestPrice = Math.max(0, ...prices);
+        priceRange.max = highestPrice;
+        priceRange.value = highestPrice;
+        priceValue.textContent = `₹${highestPrice}/hr`;
 
-            const value = this.value.toLowerCase();
-
-            const workers = document.querySelectorAll(".workerbox");
+        function filterWorkers() {
+            const value = search.value.toLowerCase();
+            const maximumPrice = Number(priceRange.value);
 
             workers.forEach(worker => {
 
                 const name = worker.querySelector(".worker-name").textContent.toLowerCase();
                 const service = worker.querySelector(".worker-service").textContent.toLowerCase();
 
-                if (name.includes(value) || service.includes(value)) {
+                if ((name.includes(value) || service.includes(value)) &&
+                    Number(worker.dataset.price) <= maximumPrice) {
                     worker.style.display = "block";
                 } else {
                     worker.style.display = "none";
@@ -133,6 +155,12 @@
 
             });
 
+        }
+
+        search.addEventListener("input", filterWorkers);
+        priceRange.addEventListener("input", function () {
+            priceValue.textContent = `₹${this.value}/hr`;
+            filterWorkers();
         });
     </script>
 
