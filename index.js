@@ -28,6 +28,7 @@ import UserAuth from "./controllers/user.control.js"
 import UserLogin from "./controllers/UserLogin.control.js"
 import UserLogout from "./controllers/UserLogout.contoller.js"
 import Booking from "./controllers/Booking.js"
+import pagination from "./controllers/Pagination.js"
 
 
 
@@ -69,28 +70,7 @@ app.get('/profile', islogin, isUser, async (req, res) => {
 
 
 
-app.get("/admin", islogin, isAdmin, async (req, res) => {
-
-  let page = parseInt(req.query.page) || 1;
-  let limit = 4;
-  let skip = (page - 1) * limit;
-
-  let users = await usermodel
-    .find({ role: "User" })
-    .populate("booking")
-    .skip(skip)
-    .limit(limit);
-
-  let totalUsers = await usermodel.countDocuments({ role: "User" });
-
-  let totalPages = Math.ceil(totalUsers / limit);
-
-  res.render("admin", {
-    users,
-    currentPage: page,
-    totalPages
-  });
-});
+app.get("/admin", islogin, isAdmin,pagination );
 
 
 

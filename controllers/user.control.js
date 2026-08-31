@@ -1,7 +1,7 @@
 import usermodel from "../models/usermodel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-const JWTSCRECT = process.env.JWTSCRECT ;
+
 
 
 const UserAuth = async (req, res) => {
@@ -22,13 +22,17 @@ const UserAuth = async (req, res) => {
                 role,
             })
 
-            var token = jwt.sign({ email: email, role: user.role }, process.env.JWTSECRET);
+            const token = jwt.sign({ email: email, role: user.role }, process.env.JWTSECRET);
 
-
-
+           
             res.cookie("token", token, {
-                httpOnly: true
+                httpOnly: true,
+                sameSite: "strict",
+                expires: new Date(Date.now() + 7 * 60 * 60 * 1000) 
+
             })
+
+           
 
             res.redirect("/")
 
