@@ -232,7 +232,7 @@ input {
     width: 420px;
     padding: 12px;
     margin: 5px;
-    border-radius: 15px;
+    border-radius: 25%;
     border: 2px solid black;
 }
 
@@ -276,13 +276,11 @@ textarea {
     margin-top: 15px;
 }
 
-.lef {
-    /* margin-left: 35%;
-    margin-top: 80px; */
-}
+
 
 .lef p {
     color: rgba(0, 0, 0, 0.756);
+    line-height: 1.1;
 }
 
 .login {
@@ -317,9 +315,9 @@ form {
     width: 500px;
     border: 2px solid rgba(0, 0, 0, 0.452);
     padding: 20px;
-    margin-left: 35%;
+    margin-left: 20%;
     border-radius: 10px;
-    margin-top: 50px;
+    margin-top: 80px;
 }
 
 .submit:hover {
@@ -873,4 +871,65 @@ button {
 
 .bold{
     font-weight: bold;
+}
+
+.left{
+    width: 50%;
+    background-color: black;
+    height: 100vh;
+    color: white;
+}
+
+.right{
+    width: 50%;
+    background-color: white;
+}
+
+.welcome{
+    color:rgba(255, 255, 255, 0.53);
+    word-spacing: 5px;
+    margin-top: 10%;
+    margin-left: 10%;
+}
+
+.left h1{
+    font-size: 60px;
+    margin-left: 10%;
+    line-height: 1.2;
+    margin-top: 20px;
+}
+
+.brand{
+    color: white;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.left p{
+    margin-left: 10%;
+    margin-top: 20px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    line-height: 1.5;
+}
+
+.container{
+    margin-right: 10%;
+}
+
+.black
+{
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.p{
+    margin-left: 20px;
+    
+}
+
+
+.container p{
+    color:rgba(255, 255, 255, 0.768)
 }

@@ -141,7 +141,7 @@ app.get('/worker/accept/:id', async (req, res) => {
    await sendEmail({
       to: idd.user[0].email,
 
-      subject: "Your ServiceHub Booking is Accepted ✅",
+      subject: "Your ServiceHub Booking is Accepted ",
 
       html: `
         <h2>Booking Accepted 🎉</h2>
