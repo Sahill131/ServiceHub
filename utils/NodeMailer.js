@@ -1,33 +1,48 @@
-import nodemailer from "nodemailer";
+require('dotenv').config();
+const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false,
-    
-
-    auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD,
-    },
+  service: 'gmail',
+  auth: {
+    type: 'OAuth2',
+    user: process.env.GOOGLE_USER,
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
+  },
 });
 
-const sendEmail = async ({ to, subject, html }) => {
-    try {
-        const info = await transporter.sendMail({
-            from: `"ServiceHub" <${process.env.EMAIL}>`,
-            to,
-            subject,
-            html,
-        });
 
-        console.log("Email sent:", info.messageId);
+transporter.verify((error, success) => {
+  if (error) {
+    console.error('Error connecting to email server:', error);
+  } else {
+    console.log('Email server is ready to send messages');
+  }
+});
 
-    } catch (error) {
-        console.error("Email sending error:", error);
-        throw error;
-    }
+
+
+const sendEmail = async ({ to, subject, text, html }) => {
+  try {
+    const info = await transporter.sendMail({
+      from: `"ServiceHub" <${process.env.GOOGLE_USER}>`,
+      to,
+      subject,
+      text,
+      html,
+    });
+
+    console.log("Message sent:", info.messageId);
+
+
+    return info;
+  } catch (error) {
+    console.error("Error sending email:", error);
+    throw error;
+  }
 };
 
-export default sendEmail;
+module.exports = sendEmail;
+
+module.exports = sendEmail;

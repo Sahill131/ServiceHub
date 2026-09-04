@@ -34,6 +34,25 @@
     </div>
   </div>
 
+  <% const pendingCount=user.booking.filter( booking=> booking.Status === "Pending"
+    ).length;
+    %>
+
+    <% const acceptedCount=user.booking.filter( booking=> booking.Status === "Accepted"
+    ).length;
+    %>
+
+    <% const rejectedCount=user.booking.filter( booking=> booking.Status === "Rejected"
+    ).length;
+    %>
+<div class="flex color">
+    <p class="your">Pending Bookings : <span class="count"><%= pendingCount %></span> </p>
+    <p class="your">Accepted Bookings : <span class="count"><%= acceptedCount %></span> </p>
+    <p class="your">Rejected Bookings : <span class="count"><%= rejectedCount %></span> </p>
+
+    </div>
+
+
   <p class="your">My Bookings </p>
 
 

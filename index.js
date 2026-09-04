@@ -57,7 +57,7 @@ app.get('/logout', UserLogout)
 app.get('/profile', islogin, isUser, async (req, res) => {
 
   let user = await usermodel.findOne({ email: req.user.email, role: "User" }).populate("booking").populate("review")
- 
+
 
 
   res.render("profile", { user })
@@ -70,14 +70,14 @@ app.get('/profile', islogin, isUser, async (req, res) => {
 
 
 
-app.get("/admin", islogin, isAdmin,pagination );
+app.get("/admin", islogin, isAdmin, pagination);
 
 
 
 
 
 
-app.post('/booking', islogin,Booking )
+app.post('/booking', islogin, Booking)
 
 app.get('/', async (req, res) => {
   let user = await usermodel.find({ role: "User" }).populate("review")
@@ -136,26 +136,140 @@ app.get('/worker/accept/:id', async (req, res) => {
   idd.Status = "Accepted"
   await idd.save()
 
-  // SENDIND EMAIL
+ 
 
-   await sendEmail({
-      to: idd.user[0].email,
+  await sendEmail({
+  to: idd.user[0].email,
+  subject: "🎉 Your ServiceHub Booking Has Been Accepted!",
 
-      subject: "Your ServiceHub Booking is Accepted ",
+  html: `
+  <!DOCTYPE html>
+  <html>
+    <body style="margin:0; padding:0; background-color:#f4f4f4; font-family:Arial, Helvetica, sans-serif;">
 
-      html: `
-        <h2>Booking Accepted 🎉</h2>
+      <div style="max-width:600px; margin:40px auto; background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,0.08);">
 
-        <p>Hello ${idd.user},</p>
+        <!-- Header -->
+        <div style="background:#111111; padding:30px; text-align:center;">
+          <h1 style="color:#ffffff; margin:0; font-size:28px;">
+            ServiceHub
+          </h1>
+          <p style="color:#bbbbbb; margin:8px 0 0;">
+            Your trusted service platform
+          </p>
+        </div>
+
+        <!-- Content -->
+        <div style="padding:40px 30px; color:#333333;">
+
+          <!-- Success Icon -->
+          <div style="text-align:center; margin-bottom:20px;">
+            <div style="
+              width:65px;
+              height:65px;
+              line-height:65px;
+              background:#e8f5e9;
+              border-radius:50%;
+              margin:auto;
+              font-size:32px;
+            ">
+              ✓
+            </div>
+          </div>
+
+          <h2 style="text-align:center; margin-bottom:10px;">
+            Booking Accepted!
+          </h2>
+
+          <p style="font-size:16px; line-height:1.6;">
+            Hello <strong>${idd.user[0].name}</strong>,
+          </p>
+
+          <p style="font-size:16px; line-height:1.6;">
+            Great news! 🎉 Your service booking has been successfully
+            <strong>accepted</strong> by the service provider.
+          </p>
+
+          <!-- Status Box -->
+          <div style="
+            background:#f7f7f7;
+            border-left:4px solid #111111;
+            padding:18px;
+            margin:25px 0;
+            border-radius:6px;
+          ">
+            <p style="margin:0 0 8px;">
+              <strong>Booking Status:</strong>
+            </p>
+
+            <span style="
+              display:inline-block;
+              background:#111111;
+              color:#ffffff;
+              padding:7px 16px;
+              border-radius:20px;
+              font-size:13px;
+              font-weight:bold;
+            ">
+              ACCEPTED
+            </span>
+          </div>
+
+          <p style="font-size:16px; line-height:1.6;">
+            The service provider will take care of the next steps. You can
+            visit your ServiceHub profile to keep track of your booking.
+          </p>
+
+          <!-- Button -->
+          <div style="text-align:center; margin:30px 0;">
+            <a href="http://localhost:4000/profile"
+              style="
+                display:inline-block;
+                background:#111111;
+                color:#ffffff;
+                text-decoration:none;
+                padding:14px 28px;
+                border-radius:6px;
+                font-weight:bold;
+              ">
+              View My Booking
+            </a>
+          </div>
+
+          <p style="font-size:15px; color:#666; line-height:1.6;">
+            Thank you for choosing ServiceHub. We're committed to making
+            your service experience simple and reliable.
+          </p>
+
+        </div>
+
+        <!-- Footer -->
+        <div style="
+          background:#111111;
+          padding:20px;
+          text-align:center;
+          color:#999999;
+          font-size:13px;
+        ">
+          <p style="margin:0;">
+            © 2026 ServiceHub. All rights reserved.
+          </p>
+          <p style="margin:8px 0 0;">
+            Connecting people with trusted service professionals.
+          </p>
+        </div>
+
+      </div>
+
+    </body>
+  </html>
+  `,
+
+});
+
+console.log("Email sent successfully to:", idd.user[0].email);
 
 
-        <p>
-          Thank you for using ServiceHub.
-        </p>
-      `,
-    });
-
-    console.log(idd)
 
   res.redirect("/worker/dashboard")
 
@@ -169,6 +283,150 @@ app.get('/worker/reject/:id', async (req, res) => {
   const idd = await bookingmodel.findOne({ _id: id })
   idd.Status = "Cancel"
   await idd.save()
+
+  await sendEmail({
+  to: idd.user[0].email,
+  subject: "Update Regarding Your ServiceHub Booking",
+
+  html: `
+  <!DOCTYPE html>
+  <html>
+    <body style="margin:0; padding:0; background-color:#f4f4f4; font-family:Arial, Helvetica, sans-serif;">
+
+      <div style="max-width:600px; margin:40px auto; background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,0.08);">
+
+        <!-- Header -->
+        <div style="background:#111111; padding:30px; text-align:center;">
+          <h1 style="color:#ffffff; margin:0; font-size:28px;">
+            ServiceHub
+          </h1>
+
+          <p style="color:#bbbbbb; margin:8px 0 0;">
+            Your trusted service platform
+          </p>
+        </div>
+
+
+        <!-- Content -->
+        <div style="padding:40px 30px; color:#333333;">
+
+          <!-- Status Icon -->
+          <div style="text-align:center; margin-bottom:20px;">
+            <div style="
+              width:65px;
+              height:65px;
+              line-height:65px;
+              background:#f5f5f5;
+              border-radius:50%;
+              margin:auto;
+              font-size:32px;
+              color:#555;
+            ">
+              !
+            </div>
+          </div>
+
+
+          <h2 style="text-align:center; margin-bottom:10px;">
+            Booking Update
+          </h2>
+
+
+          <p style="font-size:16px; line-height:1.6;">
+            Hello <strong>${idd.user[0].name}</strong>,
+          </p>
+
+
+          <p style="font-size:16px; line-height:1.6;">
+            We regret to inform you that your service booking could not be
+            accepted by the service provider at this time.
+          </p>
+
+
+          <!-- Status Box -->
+          <div style="
+            background:#f7f7f7;
+            border-left:4px solid #555555;
+            padding:18px;
+            margin:25px 0;
+            border-radius:6px;
+          ">
+
+            <p style="margin:0 0 8px;">
+              <strong>Booking Status:</strong>
+            </p>
+
+            <span style="
+              display:inline-block;
+              background:#555555;
+              color:#ffffff;
+              padding:7px 16px;
+              border-radius:20px;
+              font-size:13px;
+              font-weight:bold;
+            ">
+              NOT ACCEPTED
+            </span>
+
+          </div>
+
+
+          <p style="font-size:16px; line-height:1.6;">
+            Don't worry — you can explore other trusted service professionals
+            on ServiceHub and find the right expert for your needs.
+          </p>
+
+
+          <!-- CTA -->
+          <div style="text-align:center; margin:30px 0;">
+            <a href="http://localhost:4000/worker"
+              style="
+                display:inline-block;
+                background:#111111;
+                color:#ffffff;
+                text-decoration:none;
+                padding:14px 28px;
+                border-radius:6px;
+                font-weight:bold;
+              ">
+              Explore Other Services
+            </a>
+          </div>
+
+
+          <p style="font-size:15px; color:#666; line-height:1.6;">
+            We apologize for any inconvenience caused. Thank you for choosing
+            ServiceHub, and we hope to help you find the right service provider soon.
+          </p>
+
+        </div>
+
+
+        <!-- Footer -->
+        <div style="
+          background:#111111;
+          padding:20px;
+          text-align:center;
+          color:#999999;
+          font-size:13px;
+        ">
+          <p style="margin:0;">
+            © 2026 ServiceHub. All rights reserved.
+          </p>
+
+          <p style="margin:8px 0 0;">
+            Connecting people with trusted service professionals.
+          </p>
+        </div>
+
+      </div>
+
+    </body>
+  </html>
+  `,
+});
+
+
   res.redirect("/worker/dashboard")
 
 })
@@ -240,7 +498,7 @@ app.post("/worker/create", islogin, async (req, res) => {
       let token = jwt.sign({ email: email, role: workers.role, _id: workers._id }, process.env.JWTSECRET)
       res.cookie("token", token, {
         httpOnly: true,
-        sameSite:"strict"
+        sameSite: "strict"
       })
       return res.redirect("/")
     })
@@ -290,12 +548,12 @@ app.get("/worker", async (req, res) => {
 
 
 
-app.get("/worker/dashboard", islogin,IsWorker, async (req, res) => {
+app.get("/worker/dashboard", islogin, IsWorker, async (req, res) => {
 
   let workers = await bookingmodel.find({ worker: req.user._id }).populate("user")
   let wokersemail = await workermodel.findOne({ email: req.user.email }).populate("booking")
-  res.render("workerdashboard", { workers, wokersemail ,})
- 
+  res.render("workerdashboard", { workers, wokersemail, })
+
 })
 
 
