@@ -322,14 +322,17 @@ form {
 
 .submit:hover {
     cursor: pointer;
-    background-color: transparent;
-    color: black;
+    background-color: rgba(0, 0, 0, 0.879);
+    color: white;
 }
 
 select {
-    width: 430px;
+    width: 420px;
     text-align: center;
     padding: 12px 6px;
+    margin: 5px;
+    border-radius: 15px;
+    border: 1px solid black;
 }
 
 html {
@@ -916,6 +919,7 @@ button {
 
 .cont{
     margin-right: 10%;
+    margin-top: 20%;
 }
 
 .black
