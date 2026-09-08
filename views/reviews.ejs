@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <% if (user.review.length> 0) { %>
+<div class="flex">
+          <div class="lll">
+            <h2>My Total Given <span class="italicc">Reviews</span> </h2>
+            <p>Total Reviews Given: <%= user.review.length%>
+            </p>
+            </div>
+
+            <div class="btnss">
+             <a href="/profile"><button class="back">Back</button></a>
+            </div>
+</div>
+
+
+
+            <div class="reviews">
+              <% user.review.reverse() && user.review.forEach(function(c) { %>
+
+                <div class="rbox">
+
+                  <div class="rflex">
+
+                    <img src="/uploads/images/<%= user.profilepic %>" alt="" srcset="" class="profilepic">
+
+                    <h4 class="bottomm">
+                      <%= c.name %>
+                    </h4>
+
+                  </div>
+
+                  <p class="pb">
+                    <%= c.review %>
+                  </p>
+
+                  <div class="line">
+                    <a href="/User/Reviews/Edit/<%= c._id %>"><button class="edit">Edit</button></a>
+                    <a href="/User/Reviews/Delete/<%= c._id %>"><button class="delete">Delete</button></a>
+                  </div>
+                </div>
+
+
+               
+
+
+
+                <% }) %>
+            </div>
+
+            <% } else { %>
+              <p class="noo">No Reviews yet</p>
+
+             <a href="/"> <button class="make"> Make Reviews</button></a>
+              <% } %>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+    integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"
+    integrity="sha512-P2IDYZfqSwjcSjX0BKeNhwRUH8zRPGlgcWl5n6gBLzdi4Y5/0O4zaXrtO4K9TZK6Hn1BenYpKowuCavNandERg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/stylesheets/script.js"></script>
+</html>

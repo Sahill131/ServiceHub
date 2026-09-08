@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+
+</head>
+
+
+<body>
+     <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Review</title>
+</head>
+
+<body>
+
+    <h1>Edit Your Review</h1>
+
+    <div class="reviewsss">
+
+        <form action="/User/Reviews/Edit/<%= edit._id %>" method="post">
+
+            <input 
+                type="text" 
+                placeholder="Name" 
+                name="reviewname"
+                value="<%= edit.name %>"
+            > 
+            <br>
+
+            <input 
+                type="text" 
+                placeholder="Give your review" 
+                name="reviwes"
+                value="<%= edit.review %>"
+            > 
+            <br>
+
+            <input type="submit" value="Update Review" class="submit">
+
+        </form>
+
+    </div>
+
+</body>
+</html>
+</body>
+</html>

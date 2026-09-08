@@ -30,7 +30,10 @@
 
     <div class="butt">
       <a href="/"><button class="back">Back</button></a>
-      <a href="/logout"><button class="logout">Log out</button></a>
+      <a href="/logout"><button class="logout">Log Out</button></a>
+      <a href="/User/Reviews"><button class="userrev">My Reviews</button></a>
+
+  
     </div>
   </div>
 
@@ -100,46 +103,7 @@
       <% } %>
 
 
-        <% if (user.review.length> 0) { %>
-
-          <div class="lll">
-            <h2>My Total Given Reviews</h2>
-            <p>Total Reviews Given: <%= user.review.length%>
-            </p>
-
-
-
-            <div class="reviews">
-              <% user.review.reverse() && user.review.forEach(function(c) { %>
-
-                <div class="rbox">
-
-                  <div class="rflex">
-
-                    <img src="/uploads/images/<%= user.profilepic %>" alt="" srcset="" class="profilepic">
-
-                    <h4 class="bottomm">
-                      <%= c.name %>
-                    </h4>
-
-                  </div>
-
-                  <p class="pb">
-                    <%= c.review %>
-                  </p>
-
-                
-
-                </div>
-
-
-
-                <% }) %>
-            </div>
-
-            <% } else { %>
-              <p class="noo">No Reviews yet</p>
-              <% } %>
+        
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"

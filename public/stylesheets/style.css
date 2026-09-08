@@ -442,11 +442,25 @@ a {
     margin-top: 60px;
     display: flex;
     flex-wrap: wrap;
-    gap: 100px;
+    gap: 30px;
     align-items: flex-start;
-    margin-left: 40px;
+    margin-left: 20px;
+    display: flex;
+    flex-wrap: wrap;
+   
 }
 
+.line{
+    display:flex
+}
+
+.line button{
+    color:black;
+    font-weight:bold;
+    margin-top:20px;
+    background-color: lightblue;
+
+}
 .rbox {
     width: 350px;
     border: 2px solid black;
@@ -457,6 +471,28 @@ a {
     background-color: rgba(128, 128, 128, 0.104);
     border-top: 4px solid #4f46e5;
 
+}
+
+.btnss button {
+    margin-left: 70rem;
+    margin-top: 35px;
+    padding: 12px;
+    border-radius: 10px;
+
+}
+
+.italicc{
+    font-style: italic;
+}
+
+.userrev{
+    background-color:lightblue;
+}
+
+.make{
+    margin-left: 40px;
+    margin-top: 20px;
+    background-color:#22c55ec2;
 }
 
 .actions{
@@ -470,6 +506,7 @@ a {
    
 }
 
+
 .cll{
     margin-left: 5%;
 }
@@ -482,7 +519,7 @@ a {
 
 .lll {
     margin-left: 30px;
-    margin-top: 100px;
+    margin-top: 40px;
 }
 
 .fle {

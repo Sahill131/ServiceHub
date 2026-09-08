@@ -29,6 +29,8 @@ import UserLogin from "./controllers/UserLogin.control.js"
 import UserLogout from "./controllers/UserLogout.contoller.js"
 import Booking from "./controllers/Booking.js"
 import pagination from "./controllers/Pagination.js"
+import Userreviews from "./controllers/Reviews.js"
+import DeleteReview from "./controllers/DeleteReview.js"
 
 
 
@@ -56,7 +58,7 @@ app.get('/logout', UserLogout)
 
 app.get('/profile', islogin, isUser, async (req, res) => {
 
-  let user = await usermodel.findOne({ email: req.user.email, role: "User" }).populate("booking").populate("review")
+  let user = await usermodel.findOne({ email: req.user.email, role: "User" }).populate("booking")
 
 
 
@@ -67,6 +69,8 @@ app.get('/profile', islogin, isUser, async (req, res) => {
 
 
 })
+
+app.get("/User/Reviews", islogin, Userreviews)
 
 
 
@@ -123,7 +127,7 @@ app.post("/user/reviews", islogin, async (req, res) => {
   user.review.push(r._id);
   await user.save()
 
-  res.redirect("/profile")
+  res.redirect("/User/Reviews")
 
 })
 
@@ -500,7 +504,7 @@ app.post("/worker/create", islogin, async (req, res) => {
         httpOnly: true,
         sameSite: "strict"
       })
-      return res.redirect("/")
+      return res.redirect("/worker/dashboard")
     })
 
   })
@@ -555,6 +559,44 @@ app.get("/worker/dashboard", islogin, IsWorker, async (req, res) => {
   res.render("workerdashboard", { workers, wokersemail, })
 
 })
+
+app.post("/User/Reviews/Delete/:id", DeleteReview)
+
+app.get("/User/Reviews/Edit/:id", islogin, async (req, res) => {
+
+    let id = req.params.id;
+
+    let edit = await reviewmodel.findOne({ _id: id });
+
+    res.render("UserReview", { edit });
+
+});
+
+
+app.post("/User/Reviews/Edit/:id", islogin, async (req, res) => {
+
+    let { reviewname, reviwes } = req.body;
+    let id = req.params.id;
+
+    await reviewmodel.findByIdAndUpdate(
+        id,
+        {
+            name: reviewname,
+            review: reviwes
+        }
+    );
+
+    res.redirect("/User/Reviews");
+
+});
+
+
+
+
+
+
+
+
 
 
 const PORT = Number(process.env.PORT) || 4000;
