@@ -62,7 +62,7 @@ app.get('/profile', islogin, isUser, async (req, res) => {
 
 
 
-  res.render("profile", { user })
+  res.render("profile", { user,  })
 
 
 
@@ -85,7 +85,7 @@ app.post('/booking', islogin, Booking)
 
 app.get('/', async (req, res) => {
   let user = await usermodel.find({ role: "User" }).populate("review")
-  res.render('index', { user })
+  res.render('index', { user,cookie: req.cookies.token })
 })
 
 app.get('/login', (req, res) => {
@@ -560,7 +560,7 @@ app.get("/worker/dashboard", islogin, IsWorker, async (req, res) => {
 
 })
 
-app.post("/User/Reviews/Delete/:id", DeleteReview)
+app.get("/User/Reviews/Delete/:id", DeleteReview)
 
 app.get("/User/Reviews/Edit/:id", islogin, async (req, res) => {
 

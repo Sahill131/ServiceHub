@@ -10,6 +10,7 @@
 
 </head>
 
+
 <body>
     <nav>
         <p class="name">
@@ -25,6 +26,12 @@
         <div class="buttons">
             <a href="/login"><button class="button">Login</button></a> &nbsp;&nbsp;&nbsp;
             <a href="/register"><button class="button">Register</button></a>
+
+
+            <% if (cookie) { %>
+                <a href="/profile"><button class="button">Profile</button></a>
+              <% } %>
+            
         </div>
     </nav>
 
@@ -44,8 +51,8 @@
         <div class="pictures">
 
 
-           
-             <img src="https://www.urbancompany.com/img?bucket=urbanclap-prod&quality=90&format=auto/w_128,dpr_2,fl_progressive:steep,q_auto:low,f_auto,c_limit/images/growth/luminosity/1731504272013-0ef836.jpeg"
+
+            <img src="https://www.urbancompany.com/img?bucket=urbanclap-prod&quality=90&format=auto/w_128,dpr_2,fl_progressive:steep,q_auto:low,f_auto,c_limit/images/growth/luminosity/1731504272013-0ef836.jpeg"
                 alt="" srcset="" class="shape">
             <img src="https://www.urbancompany.com/img?bucket=urbanclap-prod&quality=90&format=auto/w_128,dpr_2,fl_progressive:steep,q_auto:low,f_auto,c_limit/images/growth/luminosity/1731504274912-f9181e.jpeg"
                 alt="" srcset="" class="shape1">
@@ -210,7 +217,7 @@
                     <h3>Hair Cut</h3><br>
                     <p>Enjoy a fresh and stylish haircut from skilled professionals, tailored to your look and comfort.
                     </p> <br>
-                      <a href="#booking"> <button class="button">Book Now</button></a>
+                    <a href="#booking"> <button class="button">Book Now</button></a>
 
                 </div>
             </div>
@@ -223,7 +230,7 @@
                     <h3>Cleaning</h3><br>
                     <p>Enjoy a fresh and stylish haircut from skilled professionals, tailored to your look and comfort.
                     </p> <br>
-                      <a href="#booking"> <button class="button">Book Now</button></a>
+                    <a href="#booking"> <button class="button">Book Now</button></a>
 
                 </div>
             </div>
@@ -236,7 +243,7 @@
                     <h3>Pest Control</h3><br>
                     <p>Enjoy a fresh and stylish haircut from skilled professionals, tailored to your look and comfort.
                     </p> <br>
-                     <a href="#booking"> <button class="button">Book Now</button></a>
+                    <a href="#booking"> <button class="button">Book Now</button></a>
 
                 </div>
             </div>
@@ -249,7 +256,7 @@
                     <h3>Furniture</h3><br>
                     <p>Enjoy a fresh and stylish haircut from skilled professionals, tailored to your look and comfort.
                     </p><br>
-                      <a href="#booking"> <button class="button">Book Now</button></a>
+                    <a href="#booking"> <button class="button">Book Now</button></a>
 
                 </div>
             </div>
@@ -266,7 +273,7 @@
                     <h3>Massage</h3><br>
                     <p>Enjoy a fresh and stylish haircut from skilled professionals, tailored to your look and comfort.
                     </p> <br>
-                      <a href="#booking"> <button class="button">Book Now</button></a>
+                    <a href="#booking"> <button class="button">Book Now</button></a>
 
                 </div>
             </div>
@@ -279,7 +286,7 @@
                     <h3> Fan Cleaning</h3><br>
                     <p>Enjoy a fresh and stylish haircut from skilled professionals, tailored to your look and comfort.
                     </p> <br>
-           <a href="#booking"> <button class="button">Book Now</button></a>
+                    <a href="#booking"> <button class="button">Book Now</button></a>
 
                 </div>
             </div>
@@ -292,7 +299,7 @@
                     <h3>Door Cleaning</h3><br>
                     <p>Enjoy a fresh and stylish haircut from skilled professionals, tailored to your look and comfort.
                     </p> <br>
-                     <a href="#booking"> <button class="button">Book Now</button></a>
+                    <a href="#booking"> <button class="button">Book Now</button></a>
 
                 </div>
             </div>
@@ -305,7 +312,7 @@
                     <h3>Balcony Claening</h3><br>
                     <p>Enjoy a fresh and stylish haircut from skilled professionals, tailored to your look and comfort.
                     </p><br>
-                   <a href="#booking"> <button class="button">Book Now</button></a>
+                    <a href="#booking"> <button class="button">Book Now</button></a>
 
                 </div>
             </div>
@@ -325,7 +332,7 @@
 
             </div>
 
-          
+
             <div class="formm">
                 <form action="/booking" method="post">
 
@@ -345,7 +352,7 @@
                     <input type="date" name="date" id=""> <br>
 
                     <input type="time" name="time" id=""> <br>
-               <input type="text" placeholder="Address" name="addres"> <br>
+                    <input type="text" placeholder="Address" name="addres"> <br>
 
 
                     <input type="submit" value="submit" class="submit alert">
@@ -357,12 +364,12 @@
 
     </section>
 
-<hr> <br><br><br><br>
+    <hr> <br><br><br><br>
     <div class="reviewssssssssssss">
 
 
 
-        <h1>Tell Us What You Think</h1> <br> 
+        <h1>Tell Us What You Think</h1> <br>
         <div class="reviewsss">
 
             <form action="/user/reviews" method="post">
@@ -384,13 +391,13 @@
         <h1><span class="hub">Voice</span> Of Our <span class="hub">Users</span></h1> <br>
         <div class="revi">
 
-            <% user.forEach(function(user) { %>               
+            <% user.forEach(function(user) { %>
 
                 <% if (user.review && user.review.length> 0) { %>
 
                     <% user.review.forEach(function(c) { %>
                         <div class="rbox">
-                           
+
                             <h4>
                                 <%= c.name %>
                             </h4>

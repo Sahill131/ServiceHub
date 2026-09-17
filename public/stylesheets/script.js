@@ -1,31 +1,36 @@
 gsap.from("nav",{
     y:50,
     duration:0.50,
-    stagger:0.5
+    stagger:0.5,
+    ease:"power3.out",
 })
 
 gsap.from(".hero1",{
     x:500,
     duration:0.50,
-    stagger:0.5
+    stagger:0.5,
+    ease:"power3.out",
 })
 
 gsap.from(".hero2",{
     x:-500,
     duration:0.50,
-    stagger:0.5
+    stagger:0.5,
+    ease:"power3.out",
 })
 gsap.from(".buttonss",{
     y:50,
     duration:0.50,
-    stagger:true
+    stagger:true,
+    ease:"power3.out",
 })
 
 gsap.from(".pictures",{
     y:500,
     opacity:0,
     duration:0.90,
-    stagger:true
+    stagger:true,
+    ease:"power3.out",
 })
 
 gsap.from(".images",{
@@ -36,6 +41,7 @@ gsap.from(".images",{
         trigger:".images",
         scroller:"body",
         start:"top 70%",
+        ease:"power3.out",
         
         
     }
@@ -49,6 +55,7 @@ gsap.from(".about2",{
         trigger:".about2",
         scroller:"body",
         start:"top 70%",
+        ease:"power3.out",
         
         
     }
@@ -64,6 +71,7 @@ gsap.from(".features",{
         trigger:".features",
         scroller:"body",
         start:"top 70%",
+        ease:"power3.out",
         
         
     }
@@ -79,7 +87,8 @@ gsap.from(".f",{
     scrollTrigger:{
         trigger:".f",
         scroller:"body",
-        start:"top 70%",
+        start:"top 90%",
+       ease:"power3.out",
         
         
     }
@@ -95,7 +104,7 @@ gsap.from(".box",{
         trigger:".f",
         scroller:"body",
         start:"top 70%",
-        
+        ease:"power3.out",
         
     }
 })
@@ -113,6 +122,7 @@ gsap.from(".bo",{
     stagger:0.08,
     ease:"power3.out",
     opacity:0,
+    ease:"power3.out",
 })
 
 gsap.from(".rbox",{
@@ -120,6 +130,7 @@ gsap.from(".rbox",{
     stagger:0.08,
     ease:"power3.out",
     opacity:0,
+    ease:"power3.out",
 })
 
 document.querySelectorAll(".alert").forEach(function(el){
