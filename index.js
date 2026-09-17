@@ -530,7 +530,7 @@ app.post('/login', async (req, res) => {
     })
 
 
-    res.redirect("/")
+    res.redirect("/worker/dashboard")
 
   });
 })
