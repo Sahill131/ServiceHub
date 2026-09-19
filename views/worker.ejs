@@ -27,6 +27,10 @@
             display: inline-block;
             min-width: 90px;
         }
+
+        input{
+            width:300px
+        }
     </style>
 
 </head>
@@ -38,24 +42,22 @@
             Service <span class="hub">Hub</span>
         </p>
 
-        <ul>
-            <li>Home</li>
-            <li>About</li>
-            <li>Service</li>
-            <li>Booking</li>
-            <li><a href="/worker" class="none">Workers</a></li>
-        </ul>
+
   <input
             type="text"
             id="search"
             class="searchbox"
             placeholder="Search by Name or Service...">
-    </nav>
 
+
+
+            
     <div class="price-filter">
-        <label for="priceRange">Max price: <span id="priceValue">₹0/hr</span></label>
+        <label for="priceRange"><span id="priceValue">₹0/hr</span></label>
         <input type="range" id="priceRange" min="0" value="0" step="1">
     </div>
+
+    </nav>
 
     <div class="lele">
         <h1>Workers</h1>
